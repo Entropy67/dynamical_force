@@ -3,7 +3,7 @@
     "test": false,
     "save": true,
     "write_log": true,
-    "dir": "output/new_fidelity/hillT5_noDetach",
+    "dir": "output/test/",
 
 
     "prm2_name":"ed",
@@ -13,17 +13,18 @@
 
     "prm_name": "eb",
     "unit": 1,
-    "prm_list_prm": [12.5, 21.1, 0.5],
+    "prm_list_prm": [10, 21, 20],
     "prm_scale": "linear",
 
-    "cluster_num":300,
-    "num_run":20,
+    "cluster_num":3,
+    "num_run":2,
     "de": 0.3,
     "dl": 20,
     "mini_surv_chance": 1,
 
     "double_prm": false,
-    "jobs": ["spd", "fidelity"],
-    "summary_qty": ["prms", "prms2", "nag", "tr", "nstd", "fidelity_n", "m2tot", "eta_bar"]
+    "jobs": ["spd"],
+    "summary_qty": ["prms", "prms2", "nag", "tr", "nstd", "m2tot", "eta_bar"]
 
-    }
+
+}

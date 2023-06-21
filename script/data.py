@@ -9,7 +9,7 @@ from mpmath import mp
 from datetime import datetime
 import copy
 
-from .utilities import *
+from utilities import *
 
 
 class MyData:

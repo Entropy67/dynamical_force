@@ -32,7 +32,7 @@ import copy
 import heapq
 import matplotlib.pyplot as plt
 import timeit
-from . import utilities as utl
+import model.model_utilities as utl
 
 
 prm_dict = {

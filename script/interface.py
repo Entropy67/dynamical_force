@@ -4,13 +4,12 @@ interface connecting scan and model
 import numpy as np
 import logging
 import copy
-import scipy.stats as ss
 import numpy.random as rd
 
-import .model.model_v3 as sim
-import .data as data
-import .controller as controller
-from .utilities import *
+import model.model as sim
+import data
+import controller
+from utilities import *
 
 class Agent(controller.Controller):
 

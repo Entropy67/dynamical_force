@@ -4,12 +4,9 @@ general scaner to scan parameters
 '''
 
 import numpy as np
-import json
 import os.path
-
-import .interface as intface
-import .controller as controller
-from .utilities import *
+import controller
+from utilities import *
 
 
 dumn_agent = controller.Controller()
@@ -73,7 +70,7 @@ class Scaner(controller.Controller):
 
     def run(self, end=99999):
         '''
-        end is used to check the simulation at early stage;
+        end is used to check the simulation at an early stage;
         when the number of prm tried exceeds end, the simulation will end
         then you can try to call run function again and the simulation will continue
         '''
@@ -104,10 +101,10 @@ class Scaner(controller.Controller):
                 printProgress(i+i0, len(self.prm_list))
             if self.double_prm:
                 for j, prm2 in enumerate(self.prm2_list):
-                    if not self.check("run"): return
+                    if not self.check("run"):
+                        return
                     finished = self._run(prm, prm2)
                     if self.early_stop and not finished:
-
                         break
             else:
 
@@ -184,12 +181,6 @@ class Scaner(controller.Controller):
 
 
         for i, qty in enumerate(self.saved_qty):
-            if False and len(self.dataset.get("prms"))!=len(self.dataset.get(qty)):
-                print("abundant or missing data point")
-                print("len of prms:", len(self.dataset.get("prms")), ", len of qtys:", len(self.dataset.get(qty)))
-                print("prms:", self.dataset.get("prms"))
-                print("i=", i, "," , qty, ":", self.dataset.get(qty))
-                raise Exception("error")
             if qty !="prms" and qty !="prms2" and qty != "prm_name" and qty[-4:] != "_std":
                 append_all(qty)
         return
@@ -222,7 +213,7 @@ class Scaner(controller.Controller):
     def constrain(self,prm1):
         #####return None
         """
-        this function impose a constrain between prm1 and prm2
+        this function imposes a constrain between prm1 and prm2
         default, None
         """
         if False:

@@ -2,6 +2,7 @@
 ### run the function
 import logging
 import sys
+import argparse
 sys.path.insert(-1, "../script/")
 
 import prm_scan as scan

@@ -4,13 +4,11 @@
 # Hongda 10/19/2017
 
 
-projname=$1
+# read project folder from config.json
+projfolder=$( cat config.json | python -c "import sys, json; print(json.load(sys.stdin)['dir'])")
 currentFolder=$PWD
-motherFolder="output/new_fidelity/"
-cd $motherFolder
-
-echo ">> checking folder..."$motherFolder$projname
-if [ -d "$projname" ];
+echo ">> project folder: "$projfolder
+if [ -d "$projfolder" ];
    then
 	# Take action if $DIR exists. #
 	read -p "!! project exist, continue?" yn
@@ -20,16 +18,15 @@ if [ -d "$projname" ];
 	* ) echo "please answer yes or no"; exit;;
 	esac
    else
-	echo ">> creating foler: "$projname
-	mkdir "$projname"
+	echo ">> creating foler: "$projfolder
+	mkdir "$projfolder"
 fi
 
 cd $currentFolder
-#cp prm_dict.json $motherFolder$projname
-cp param.json $motherFolder$projname
-cp config.json $motherFolder$projname
-cp launch.sh $motherFolder$projname
+cp param.json $projfolder
+cp config.json $projfolder
+cp launch.sh $projfolder
 echo ">> launching main.py"
-python main.py >$motherFolder$projname"/out" 2>$motherFolder$projname"/err" &
+python main.py >$projfolder"/out" 2>$projfolder"/err" &
 
 echo ">> job submitted!"
