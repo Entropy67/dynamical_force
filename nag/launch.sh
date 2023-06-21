@@ -19,7 +19,7 @@ if [ -d "$projfolder" ];
 	esac
    else
 	echo ">> creating foler: "$projfolder
-	mkdir "$projfolder"
+	mkdir -p "$projfolder"
 fi
 
 cd $currentFolder
