@@ -1,0 +1,22 @@
+#!/bin/bash
+## copy param and config from a work directory
+# Hongda 10/19/2017
+
+
+projname=$1
+currentFolder=$PWD
+#cd output
+
+if [ -d "$projname" ];
+   then
+	# Take action if $DIR exists. #
+	cd $projname
+	#cp prm_dict.json $currentFolder
+	cp param.json $currentFolder
+	cp config.json $currentFolder
+   else
+	echo "project does not exist"
+	exit
+fi
+
+exit

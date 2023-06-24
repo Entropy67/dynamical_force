@@ -6,10 +6,9 @@ import logging
 import copy
 import numpy.random as rd
 
-import model.model as sim
-import data
-import controller
-from utilities import *
+import script.model.model as sim
+import script.controller as controller
+from script.utilities import *
 
 class Agent(controller.Controller):
 

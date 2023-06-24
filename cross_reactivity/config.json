@@ -1,0 +1,27 @@
+{
+"output":true,
+"test": false,
+"save": true,
+"write_log": true,
+"dir": "output/a_hillN5/extended_lowAff",
+
+"prm2_name":"ed",
+"unit2": 1,
+"prm2_list_prm": [5, 10, 1],
+"prm2_scale": "linear",
+
+"prm_name": "eb",
+"unit": 1,
+"prm_list_prm": [5.5, 10.6, 1],
+"prm_scale": "linear",
+
+"cluster_num":500,
+"num_run":20,
+"de": 0.5,
+"dl": 20,
+
+"double_prm": true,
+"jobs": ["spd"],
+"summary_qty": ["prms", "prms2", "nag", "nag_antag", "tr", "nstd", "nstd_antag"]
+
+}

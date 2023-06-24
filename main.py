@@ -1,20 +1,16 @@
 
-### run the function
+
 import logging
-import sys
-sys.path.insert(-1, "../script/")
 
-import prm_scan as scan
-import utilities as utl
-import interface as intf
-
-
+import script.prm_scan as scan
+import script.utilities as utl
+import script.interface as intf
 
 def main():
-    prm = utl.load_prm("param.json")
+    prm = utl.load_prm( "param.json")
     # calculate derived parameters
     utl.sync_prm(prm=prm)
-    config = utl.load_prm("config.json")
+    config = utl.load_prm( "config.json")
     logging.basicConfig(filename=config["dir"]+'/log',level=logging.DEBUG, format='%(asctime)s %(message)s')
 
     agent = intf.Agent(prm, config["jobs"])

@@ -5,8 +5,8 @@ import json
 import os
 import copy
 from datetime import datetime
-import data
-from utilities import *
+import script.data as data
+from script.utilities import *
 
 class Controller:
     '''

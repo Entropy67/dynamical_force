@@ -6,10 +6,9 @@ import os
 import os.path
 
 from mpmath import mp
-from datetime import datetime
 import copy
 
-from utilities import *
+from script.utilities import *
 
 
 class MyData:

@@ -5,8 +5,8 @@ general scaner to scan parameters
 
 import numpy as np
 import os.path
-import controller
-from utilities import *
+import script.controller as controller
+from script.utilities import *
 
 
 dumn_agent = controller.Controller()

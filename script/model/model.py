@@ -31,8 +31,7 @@ from math import log
 import copy
 import heapq
 import matplotlib.pyplot as plt
-import timeit
-import model.model_utilities as utl
+import script.model.model_utilities as utl
 
 
 prm_dict = {
@@ -459,8 +458,8 @@ class Force_prm:
         self.update_method = prmdict["force_update_method"]
         assert self.update_method in ["instantaneous", "fixed_rate", "fixed_step"], "force_update_method is invalid. Supported method: 'fixed_step',  'fixed_rate', 'instantaneous'"
 
-        if self.scheme not in ["hillT", "powT", "step"] and self.update_method !=0:
-            raise Exception("force_prm: update method wrong!!! please set it to zero ")
+        if self.scheme not in ["hillT", "powT", "step"] and self.update_method !="instantaneous":
+            raise Exception("force_prm: update method wrong!!! please set it to instantaneous ")
         self.f0 = prmdict["f0"]
         self.mc = prmdict["mc"]
         self.tc = prmdict["tc"]
