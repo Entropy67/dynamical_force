@@ -1,0 +1,10 @@
+/Users/skyhd/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:3373: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/Users/skyhd/anaconda3/lib/python3.6/site-packages/numpy/core/_methods.py:170: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/Users/skyhd/Documents/research/code/dynamic_force_v2/script/interface.py:292: RuntimeWarning: Mean of empty slice
+  self.dataset.append(qty, np.nanmean(values[i]))
+/Users/skyhd/anaconda3/lib/python3.6/site-packages/numpy/lib/nanfunctions.py:1665: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  keepdims=keepdims)
+/Users/skyhd/Documents/research/code/dynamic_force_v2/script/data.py:76: RuntimeWarning: Mean of empty slice
+  return np.nanmean(self.dataset[qty])

@@ -1,4 +1,3 @@
-nag/output/*
 cross_reactivity/output/*
 script/__pycache__/*
 script/model/__pycache__/*
