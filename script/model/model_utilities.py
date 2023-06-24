@@ -24,17 +24,10 @@ def set_ea(ea, prm):
 
 
 def sync_prm(prm):
-    set_ea(prm["ea"], prm)
-    set_eb(prm["eb"], prm)
-    prm["tau_a"][0] = float(np.exp(prm["ec"]))
-    prm["tau_b"][0]  = float(np.exp(prm["ed"]))
+    prm["tau_a"] = [float(np.exp(prm["ec"])), float(np.exp(prm["ea"]))]
+    prm["tau_b"] = [float(np.exp(prm["ed"])), float(np.exp(prm["eb"]))]
     prm["ton"] = float(np.exp(prm["eon"]))
     return prm
-
-def check_prm(prm):
-    assert prm["tau_b"][1] == float(100*np.exp(prm["eb"])), print("!!!! Error: prm is not synced")
-    assert prm["tau_a"][1] == float(100*np.exp(prm["ea"])), print("!!!! Error: prm is not synced")
-    return
 
 def load_prm(filename):
     ### load the json

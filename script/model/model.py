@@ -456,7 +456,8 @@ class Force_prm:
     def loadprm(self, prmdict):
 
         self.scheme=prmdict["scheme"]
-        self.update_method = prmdict["force_update"]
+        self.update_method = prmdict["force_update_method"]
+        assert self.update_method in ["instantaneous", "fixed_rate", "fixed_step"], "force_update_method is invalid. Supported method: 'fixed_step',  'fixed_rate', 'instantaneous'"
 
         if self.scheme not in ["hillT", "powT", "step"] and self.update_method !=0:
             raise Exception("force_prm: update method wrong!!! please set it to zero ")
@@ -469,7 +470,7 @@ class Force_prm:
         pass
 
     def is_time_dependent(self):
-        return self.scheme in ["hillT", "powT"] and self.update_method==0
+        return self.scheme in ["hillT", "powT"] and self.update_method=="instantaneous"
 
     def get_f(self, t,   m_max=1):
 
@@ -492,7 +493,7 @@ class Force_prm:
             if t<=0:
                 self.f = 0
             else:
-                if self.update_method == 2:
+                if self.update_method == "fixed_step":
                     self.f += self.df
                 else:
                     self.f = self.f0 * (1/(1+(self.tc/t)**self.beta))
@@ -507,7 +508,7 @@ class Force_prm:
             if t<=0:
                 self.f = 0
             else:
-                if self.update_method == 2:
+                if self.update_method == "fixed_step":
                     self.f += self.df
                 else:
                     self.f = self.f0*(t/self.tc)**self.beta
@@ -528,9 +529,9 @@ class Force_prm:
         get force chaging rate
         """
         if self.scheme=="hillT":
-            if self.update_method == 1:
+            if self.update_method == "fixed_rate":
                 return self.kf
-            elif self.update_method == 2:
+            elif self.update_method == "fixed_step":
                 if t>0:
                     t2 = self.tc*((1.0/(self.df/self.f0 + 1.0/(1.0+(self.tc/t)**self.beta)) - 1)**(-1.0/self.beta))
                     if t2==t:
@@ -787,7 +788,7 @@ class Stoch(Model2):
         a[8] = self.force.get_kf(self.t)
         #print("af=", a[8])
 
-        if self.time_dependent and self.prm["force_update"]==0:
+        if self.time_dependent and self.force.update_method == "instantaneous":
             for i in [0, 2, 4, 6]:
                 a[i] = -1 if a[i]>0 else 0
             a[8] = 0
@@ -846,7 +847,7 @@ class Stoch(Model2):
 
         self.current_species += self.stoch[next_r, :]
         ## update force or species
-        if next_r == self.num_rect-1 or self.prm["force_update"]==0: ### reaction for force updating
+        if next_r == self.num_rect-1 or self.force.update_method=="instantaneous": ### reaction for force updating
             self.updateRate()
 
         self.step +=1

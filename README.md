@@ -105,21 +105,18 @@ In this section, we walk through the parameters that we used to specify an antig
     "initCond": "none",
     "sim_method": "modified_next_reaction",
     "enzymic_detach": false,
-    "force_update": 2,
+    "force_update_method": "fixed_step",
     "loadSharing": true,
     "beta":5,
     "mc":60,
     "f0":600,
     "tc":120000,
-    "tau_a": [300000, 300000],
-    "tau_b": [300000, 600000],
     "ea": 12.611538,
     "eb": 15.03,
     "ec": 12.611538,
     "ed": 12.611538,
     "xb1": 1.5,
     "xb2": 2.0,
-    "ton": 20000,
     "eon": 9.90349,
     "pot":"phenomenon",
     "l0": 0,
@@ -157,8 +154,11 @@ simulation method, possible values:
 ### enzymic_detach
 boolean, whether the enzymic detach will be triggered at $t_{m}$. If true, then all closed complexes will break at the BCR-Ag interface when $t=t_m$.
 
-### force_update
-A flag used to specify whether the change in force magnitude will be treated as stochastic reactions. For gradual time-dependent force, i.e. `hillT`and `powT`, we need to set it non-zero (i.e. 2). For other force schemes, we set it zero.
+### force_update_method
+Method used to update force magnitude during reactions. Currently we support three methods:
+* `instantaneous`: the force magnitude gets updated as soon as the system configuration changes. This method should be paired with the `hillN`, `powN`, and `const` force schemes.
+* `fixed_rate`: we treat the change in force magnitude as a chemical reaction, which takes place at a fixed rate specified by `kf`. This method is compatible with the `hillT` and `powT` force schemes. A large rate should be used, such that the force gets updated frequently, if we want the force to exactly follow the force scheme especially when `beta` is large. However, a large `kf` will slow down the simulation.
+* `fixed_step`: this method offers an adaptive control of `kf`. The reaction rate `kf` is determined adaptatively by the expected change in force magnitude, which is fixed every force reaction. This method can be used along with the `hillT` and `powT` force schemes.
 
 ### loadSharing
 boolean, whether the force is shared by all closed complexes.
@@ -176,6 +176,42 @@ Total force magnitude, pN
 
 ### tc
 Critical time point that triggers the force. Note that one can also use `vc` (the inverse of `tc`) or `logtc` (log of `tc`) to specify the critical time point. The conversion between them is implemented in `utilities.sync_prm()`.
+
+### ea, eb, ec, ed
+Bond affinity values, which determine the off-rates of bonds.
+* `ea`: affinity of APC-Ag1 bond. The corresponding off rate is $k_a=\exp(-E_a)$.
+* `eb`: affinity of BCR-Ag1 bond. Off-rate is $k_b=\exp(-E_b)$.
+* `ec`: affinity of APC-Ag2 bond. Off-rate: $k_c=\exp(-E_c)$.
+* `ed`: affinity of BCR-Ag2 bond. Off-rate: $k_d=\exp(-E_d)$.
+
+### xb1, xb2
+Bond length.
+* `xb1`: bond length of APC-Ag bond, shared by all different antigens.
+* `xb2`: bond length of BCR-Ag bond, shared by all antigens.
+
+### eon
+On rate "affinity". The on-rate is determined by
+$k_{on} = \exp(-E_{on})$.
+
+### pot
+Potential landscape. Should be set as `phenomenon` all the time.
+
+### l0, l1
+Initial number of free antigens loaded on APC for Ag1 and Ag2.
+
+
+### tm
+Maximum simulation time. If complexes still survive at $t_m$, enzymic detach will be triggered if `enzymic_detach==True`.
+
+### tmin
+Minimum simulation time. If all complexes break within `tmin`, they are allowed to rebind and the simulation won't be terminated.
+
+### kf
+Reaction rate to update the force magnitude. It is useful when force is time-dependent (`hillT` or `powT`) and the update method is `fixed_rate`.
+
+### df
+Force update step size. Should be paired with the `fixed_step` force update method.
+
 
 
 ## Notes
