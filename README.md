@@ -301,5 +301,27 @@ A list of jobs to be performed. See [Interface](#interface) section for details.
 
 ### summary_qty
 A list of names of quantities to be put in the `summary` file. This is for validation only. It won't make any difference in the simulation results.
+
+## Output
+Here is a list output file in the working directory.
+
+**data**
+* `data.json`: json file contains the main data info
+* `data_temp.json`: tempoerary file to store data during calculation.
+* `agent_data.txt`: txt file contains all the data. Typically we don't investigate it unless the data we want does not exist in `data.json`.
+
+**control**
+* `check`: exists during the simulation. Replace `False` with `True` will stop the simulation while saving the latest data.
+
+**info**
+* `err`: error info. Warnings can be ignored. If the simulation failed. Use `cat err` to debug.
+* `out`: stdout
+* `summary`: summary of quantities of interests
+* `log`: all log info
+
+**parameter and config file**
+* `param.json`: a copy of parameters for record
+* `config.json`: a copy of config for record purpose
+
 ## Notes
 

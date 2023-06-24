@@ -25,7 +25,6 @@ fi
 cd $currentFolder
 cp param.json $projfolder
 cp config.json $projfolder
-cp launch.sh $projfolder
 echo ">> launching main.py"
 python ../main.py ${PWD##*/}  >$projfolder"/out" 2>$projfolder"/err" &
 echo ">> job submitted!"
