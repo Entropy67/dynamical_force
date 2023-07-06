@@ -3,7 +3,7 @@
 "test": false,
 "save": true,
 "write_log": true,
-"dir": "output/a_hillN5/extended_lowAff",
+"dir": "output/test",
 
 "prm2_name":"ed",
 "unit2": 1,
@@ -15,13 +15,13 @@
 "prm_list_prm": [5.5, 10.6, 1],
 "prm_scale": "linear",
 
-"cluster_num":500,
-"num_run":20,
+"cluster_num":5,
+"num_run":2,
 "de": 0.5,
 "dl": 20,
 
 "double_prm": true,
-"jobs": ["spd"],
+"jobs": ["cross_reactive"],
 "summary_qty": ["prms", "prms2", "nag", "nag_antag", "tr", "nstd", "nstd_antag"]
 
 }
