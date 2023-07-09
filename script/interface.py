@@ -208,6 +208,7 @@ class Agent(controller.Controller):
             if not self.check("(run mixed ag):"):
                 return
 
+            # mixing antigens together
             self.prm["l0"], self.prm["l1"] = l0, l1
 
             # flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, _, _, _, _, _, _ = self._run_sim(save_all=True, print_example=print_example)
@@ -225,12 +226,11 @@ class Agent(controller.Controller):
 
                 self.append(["nag_all"], [ns], mode="all")
 
-
+            # segregate antigens into different clusters
             self.prm["l0"], self.prm["l1"] = 0, l0+l1
 
             # flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, _, _, _, _, _, _ = self._run_sim(save_all=True, print_example=print_example)
             flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, m1tot, m2tot, fra, frb, eta_bar, eta_var = self._run_sim(save_all=True, print_example=print_example)
-            print_example = False
             if len(ns)==0:
                 ns.append(np.nan)
             else:
@@ -246,9 +246,7 @@ class Agent(controller.Controller):
             if print_example:
                 self.print2("first run done!")
             print_example = False
-        ### run segaragated Ag
-
-
+        self.prm["l0"], self.prm["l1"] = l0, l1
         return True
 
     def run_many(self):
@@ -478,7 +476,7 @@ class Agent(controller.Controller):
             if print_example:
                 if not flag:
                     self.print2("(_run_sim): un-finished!")
-                self.print2("(_run_sim): nag={0:.2f},na={4:.2f}, fr={1:.2f}, tr={2:.2f}, mmax={3:.0f}, m2tot={5:.0f}".
+                self.print2("(_run_sim): nag={0:.2f},nag_antag={4:.2f}, fr={1:.2f}, tr={2:.2f}, mmax={3:.0f}, m2tot={5:.0f}".
                                format(self.sto.current_species[3], fr1/1000, tr1/60000, self.sto.m_max, self.sto.current_species[1], len(self.sto.fb_record[self.sto.fb_record>0])))
                 print_example = False
 

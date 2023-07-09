@@ -144,7 +144,8 @@ class Scaner(controller.Controller):
             info = ">>>>    : "
             for j, qty in enumerate(self.summary_qty):
                 if (j+1)%5==0:
-                    info += "\n>>>>    : "
+                    self.print2(info)
+                    info = ">>>>    : "
                 if qty == "prms" or qty=="prms2":
                     continue
 

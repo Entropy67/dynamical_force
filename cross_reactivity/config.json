@@ -7,20 +7,20 @@
 
 "prm2_name":"ed",
 "unit2": 1,
-"prm2_list_prm": [5, 10, 1],
+"prm2_list_prm": [9, 15, 1],
 "prm2_scale": "linear",
 
-"prm_name": "eb",
+"prm_name": "ed",
 "unit": 1,
-"prm_list_prm": [5.5, 10.6, 1],
+"prm_list_prm": [9, 15, 1],
 "prm_scale": "linear",
 
-"cluster_num":5,
-"num_run":2,
+"cluster_num":10,
+"num_run":20,
 "de": 0.5,
 "dl": 20,
 
-"double_prm": true,
+"double_prm": false,
 "jobs": ["cross_reactive"],
 "summary_qty": ["prms", "prms2", "nag", "nag_antag", "tr", "nstd", "nstd_antag"]
 
