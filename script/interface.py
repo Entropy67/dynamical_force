@@ -50,7 +50,10 @@ class Agent(controller.Controller):
                          "opt_prm_0", "opt_prm_1", "opt_prm_2",
 
                         "nag_seg", "fr_seg", "tr_seg", "m2max_seg", "nag_antag_seg", "m1max_seg", "mmax_seg",
-                        "nstd_seg", "fstd_seg", "tstd_seg", "m2mstd_seg", "nstd_antag_seg", "m1mstd_seg", "mmstd_seg"
+                        "nstd_seg", "fstd_seg", "tstd_seg", "m2mstd_seg", "nstd_antag_seg", "m1mstd_seg", "mmstd_seg",
+
+                        "nag_seg2", "fr_seg2", "tr_seg2", "m2max_seg2", "nag_antag_seg2", "m1max_seg2", "mmax_seg2",
+                        "nstd_seg2", "fstd_seg2", "tstd_seg2", "m2mstd_seg2", "nstd_antag_seg2", "m1mstd_seg2", "mmstd_seg2",
                      ]
 
 
@@ -207,10 +210,11 @@ class Agent(controller.Controller):
         for i in range(self.num_run):
             if not self.check("(run mixed ag):"):
                 return
-
+            if print_example:
+                self.print2("Mixing antigen together")
             # mixing antigens together
-            self.prm["l0"], self.prm["l1"] = l0, l1
-
+            self.sto.set_prm("l0", l0)
+            self.sto.set_prm("l1", l1)
             # flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, _, _, _, _, _, _ = self._run_sim(save_all=True, print_example=print_example)
             flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, m1tot, m2tot, fra, frb, eta_bar, eta_var = self._run_sim(save_all=True, print_example=print_example)
 
@@ -225,10 +229,11 @@ class Agent(controller.Controller):
                 self.append(["nstd", "fstd", "tstd", "m2mstd", "nstd_antag", "m1mstd", "mmstd"], [ns, frs, trs,m2maxs, n1s, m1maxs, mmaxs], mode="std" )
 
                 self.append(["nag_all"], [ns], mode="all")
-
+            if print_example:
+                self.print2("Segregate antigens: Ag1")
             # segregate antigens into different clusters
-            self.prm["l0"], self.prm["l1"] = 0, l0+l1
-
+            self.sto.set_prm("l0", 0)
+            self.sto.set_prm("l1", l0 + l1)
             # flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, _, _, _, _, _, _ = self._run_sim(save_all=True, print_example=print_example)
             flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, m1tot, m2tot, fra, frb, eta_bar, eta_var = self._run_sim(save_all=True, print_example=print_example)
             if len(ns)==0:
@@ -242,6 +247,25 @@ class Agent(controller.Controller):
                 self.append(["nstd_seg", "fstd_seg", "tstd_seg", "m2mstd_seg", "nstd_antag_seg", "m1mstd_seg", "mmstd_seg"], [ns, frs, trs,m2maxs, n1s, m1maxs, mmaxs], mode="std" )
 
                 self.append(["nag_all_seg"], [ns], mode="all")
+
+            if print_example:
+                self.print2("Segregate antigens: Ag2")
+
+            self.sto.set_prm("l0", l0 + l1)
+            self.sto.set_prm("l1", 0)
+            # flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, _, _, _, _, _, _ = self._run_sim(save_all=True, print_example=print_example)
+            flag, ns, frs, trs, m2maxs, n1s, m1maxs, mmaxs, m1tot, m2tot, fra, frb, eta_bar, eta_var = self._run_sim(save_all=True, print_example=print_example)
+            if len(ns)==0:
+                ns.append(np.nan)
+            else:
+                has_nag_data = True
+            if len(n1s)==0: n1s.append(np.nan)
+
+            if flag:
+                self.append(["nag_seg2", "fr_seg2", "tr_seg2", "m2max_seg2", "nag_antag_seg2", "m1max_seg2", "mmax_seg2"], [ns, frs, trs,m2maxs, n1s, m1maxs, mmaxs], mode="mean")
+                self.append(["nstd_seg2", "fstd_seg2", "tstd_seg2", "m2mstd_seg2", "nstd_antag_seg2", "m1mstd_seg2", "mmstd_seg2"], [ns, frs, trs,m2maxs, n1s, m1maxs, mmaxs], mode="std" )
+
+                self.append(["nag_all_seg2"], [ns], mode="all")
 
             if print_example:
                 self.print2("first run done!")

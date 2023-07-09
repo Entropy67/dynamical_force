@@ -311,7 +311,7 @@ Here is a list output file in the working directory.
 * `agent_data.txt`: txt file contains all the data. Typically we don't investigate it unless the data we want does not exist in `data.json`.
 
 **control**
-* `check`: exists during the simulation. Replace `False` with `True` will stop the simulation while saving the latest data.
+* `check`: exists during the simulation. Replace `false` with `true` will stop the simulation while saving the latest data.
 
 **info**
 * `err`: error info. Warnings can be ignored. If the simulation failed. Use `cat err` to debug.
@@ -325,3 +325,18 @@ Here is a list output file in the working directory.
 
 ## Notes
 
+### Some tips
+**Using `log` to debug**
+
+One can print out logging message using the `self.print2(message)` function in `Scaner`, `Agent` objects. The message will be saved to `log` file.
+
+When a simulation finishes, it is helpful to carefully walk through the `log` file to see if there is anything unexpected.
+
+**Using `check` to stop the simulation**
+
+Sometimes the simulation will run forever, it is useful to modify the `check` file to stop the simulation early without deleting data that have already been generated.
+
+To do so, simply change the content of `check` file into
+```
+{"stop": true}
+```

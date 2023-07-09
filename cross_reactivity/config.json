@@ -5,14 +5,14 @@
 "write_log": true,
 "dir": "output/test",
 
-"prm2_name":"ed",
+"prm2_name":"eb",
 "unit2": 1,
-"prm2_list_prm": [9, 15, 1],
+"prm2_list_prm": [5, 21, 1],
 "prm2_scale": "linear",
 
 "prm_name": "ed",
 "unit": 1,
-"prm_list_prm": [9, 15, 1],
+"prm_list_prm": [5, 21, 1],
 "prm_scale": "linear",
 
 "cluster_num":10,
